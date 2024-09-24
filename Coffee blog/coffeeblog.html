@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Blog</title>
+</head>
+<body>
+    <form>
+        <label for="name">Название напитка</label>
+        <input type="text" id="name" name="title" placeholder="Американо">
+        <br>
+        <label for="sort">Сорт кофе</label>
+        <select id="type" name="sort">
+            <option>Арабика</option>
+            <option>Гватемала</option>
+            <option>Робуста</option>
+            <option>Либерика</option>
+            <option>Катурра</option>
+        </select>
+        <br>
+        <label for="sort">Крепость обжарки</label>
+        <input type="radio" name = "strong" value="3"> Крепкий
+        <input type="radio"name = "strong" value="2"> Средний
+        <input type="radio" name = "strong" value="1"> Легкий
+        <br>
+        <label for="pict">Изображение</label>
+        <input type="text" id="pict" name="image" placeholder="Ссылка">
+        <br>
+        <label for="price">Стоимость напитка</label>
+        <input type="text" id="price" name="cost" placeholder="Цена">
+        <br>
+        <label for="opisanie">Описание</label>
+        <textarea id="message" name="description"></textarea>
+        <br>
+        <input type="submit" value="Добавить напиток🔍">
+    </form>
+
+    <br>
+
+        <link rel="stylesheet" href="Styles/styles.css">
+        <table id="table">
+            <tr>
+                <td>Изображение</td>
+                <td>Название</td>
+                <td>Сорт</td>
+                <td>Крепость обжарки</td>
+                <td>Стоимость</td>
+                <td>Описание</td>
+            </tr>
+        </table>
+</body>
+<script> 
+    const f = document.forms[0]; 
+    let tr = document.getElementById("table"); 
+    let t = tr; 
+    f.addEventListener("submit", (e) => { 
+        e.preventDefault(); 
+        let body = {}; 
+        for (let i = 0; i < f.elements.length; i++) { 
+            let tag = f[i]; 
+            if (tag.name) { 
+                if (tag.type === "radio" && tag.checked) { 
+                    body[tag.name] = tag.value; 
+                } else if (tag.type !== "radio") { 
+                    body[tag.name] = tag.value; 
+                } 
+            } 
+        } 
+        console.log(body); 
+        let html = "<tr>"; 
+        html += `<td><img src="${body.image}" width="200" alt="${body.title}"></td>`; 
+        html += `<td>${body.title || ""}</td>`; 
+        html += `<td>${body.sort || ""}</td>`; 
+        html += `<td>${body.strong || ""}</td>`; 
+        html += `<td>${body.cost || ""}</td>`; 
+        html += `<td>${body.description || ""}</td>`; 
+        html += "</tr>" 
+        t.innerHTML += html; 
+    }) 
+</script>
+</html>
